@@ -28,6 +28,7 @@ tool calls and returns a fit card — in at least 4 of 5 tries.
 <!-- Why 4 of 5 and not 5 of 5? Something about your search, probably —
      "my search is a plain keyword match and some phrasings will miss" is a
      real answer. -->
+     Since search_listings uses deterministic keyword overlap rather then sheer language model, a query can describe a valid item utilising wording that doesnt overlap enought with the listing text. 4 out of 5 is a good target as the vast majority of matching listings per query return a fitcard.
 
 ---
 
@@ -39,6 +40,7 @@ Given a query that matches no listings, the agent stops before calling
 **Why this target:**
 <!-- Why is 5 of 5 reasonable here when criterion 1 isn't? What's different
      about this path? -->
+     Since the search_listing uses deterministic keyword overlap, there should be no reason an impossible query triggers the second tool to begin with. 5 out of 5 is reasonable as an impossible query should stop at the first tool instead of sending missing/random data to other tools and wasting resources and time.
 
 ---
 
@@ -53,11 +55,11 @@ Given a query that matches no listings, the agent stops before calling
      look like state failure — it looks like a tool problem. Something that
      compares session["selected_item"] against what actually reached
      suggest_outfit is the shape you're after. -->
-
+The listing ID stored in session["Selected_Item"]["ID"] is the same listing ID that is provided to suggest_outfit in 5 out 5 succesful runs.
 
 
 **Why this target:**
-
+The target of 5 out 5 runs is chosen strictly because the search is deterministic, to ensure the correct listings are stored and passed between calls/functions, 5 out 5 of the succesful runs should contain that exact same listing id. There should never be a different or incorrect listing ID provided due to the architecture of the agent.
 
 
 ---
@@ -74,10 +76,12 @@ Given a query that matches no listings, the agent stops before calling
      mentions the price? Two different items producing the same opening
      sentence? A card longer than a caption anyone would post? Any of those can
      be turned into a number. -->
+     Each fit card should mention the selected items' prices and platform it was found on. Aswell as being 2 to four sentences long.
 
 
 
 **Why this target:**
+When a fit card is generated, the deterministic variables should always be provided, the price and platform so the user can be given directly the correct information for the selected item(s). Aswell as a description between 2 to 4 sentences long ensuring that no inadequate description is provided in the context of length, meaning not too short that the user is left guessing and not too long that it becomes complicated.
 
 
 
@@ -91,11 +95,11 @@ Given a query that matches no listings, the agent stops before calling
      wardrobe path, what happens when the model can't be reached, whether the
      search respects a price ceiling — anything, as long as it names a number
      or an observable outcome. -->
-
+The search should always respect the maximum price set by the user in 5 out of 5 searches when 'max_price' is provided. Every listing returned by 'search_listings' should be less than or equal to that maximum price.
 
 
 **Why this target:**
-
+Since this is deterministic and the idea behind thrifting is to get clothes for a good price/bargain, the maximum price when provided by the user should always be respected in each search. Because of this 5 out of 5 runs is chosen for this criteria as its a core principle of the tool, even though the maximum price is an optional input, returning a listing above the user's provided 'max_price' would be a complete failure by the tool.
 
 
 ---
