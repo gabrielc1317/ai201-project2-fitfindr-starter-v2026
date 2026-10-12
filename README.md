@@ -40,6 +40,7 @@
 ## What This Does
 
 <!-- Three or four sentences: what a user asks for, and what they get back. -->
+The user is able to search listing data from thrift stores. They user can filter and categorize by description, size, and price. The tool will rank matching items based of user's selected filters/categories. Essentialy finding a "fit" (outfit) for the user, utilising thrift store listings.
 
 
 
@@ -59,23 +60,23 @@
 
 ### `search_listings`
 
-- **What it does:**
-- **Inputs:** <!-- name and type each: `max_price` (float), not "a price" -->
-- **Returns:**
-- **When it has nothing:**
+- **What it does: Searches thrift store listing data for items that match users description and other optional paramaters such as price and size, and ranks them by keyword overlap.**
+- **Inputs:'description' (str), 'size' (str | None), 'max_price' (float | None)** <!-- name and type each: `max_price` (float), not "a price" -->
+- **Returns:A list[dict] of matching listing dictionaries, ordered from best match to worst match, limited to config.SEARCH_RESULT_LIMIT. Each listing contains the following fields: (id, title, description, category, style_tags, size, condition, price, colors, brand, platform)**
+- **When it has nothing: Returns an empty list**
 
 ### `suggest_outfit`
 
-- **What it does:**
-- **Inputs:**
-- **Returns:**
-- **When it has nothing:**
+- **What it does: Uses the selected thrift listing and the user's wadrobe to generate one or two outfit suggestions. **
+- **Inputs: 'new item' (dict), 'wardrobe' (dict)**
+- **Returns: A non empty string (str) containing outfit suggestions. If wardrobe items are available it should also name pieces the user already owns**
+- **When it has nothing: Returns general styling advice rather then failing and returning an empty string**
 
 ### `create_fit_card`
 
-- **What it does:**
-- **Inputs:**
-- **Returns:**
+- **What it does:Turns the selected listing and outfit suggestion into a short caption someone could post about the find.**
+- **Inputs: 'outfit' (str), 'new_item' (dict)**
+- **Returns: A non empty string (str) containing a 2 to 4 sentence caption that mentions the item, price, platform, and overall outfit vibe.**
 - **When it has nothing:**
 
 ---
@@ -93,13 +94,13 @@
      The grader checks your code against what you claim here, so the file and
      function have to be real. -->
 
-**Branch rule:**
+**Branch rule: If search_listings returns an empty list, the agent stores a message in session["error"] explaining that no listings were matched and that user should change the description, size, or maximum price. The agent then stops without calling suggest_outfit or create_fit_card. If atleast one listing is returned, the agent stores them in session["search_results"] and selects the highest ranked result, stores it in the session["selected_item"], uses it with session["wardrobe"] to call suggest_outfit and stores it in session["outfit_suggestion"]. Then uses that session to call create_fit_card and stores the final caption in session["fit_card"] .**
 
-**Where it lives:** `agent.py::run_agent`
+**Where it lives:'agent.py::run_agent'** `agent.py::run_agent`
 
-**How the query is parsed:** <!-- regex, string splitting, or asking the model — say which -->
+**How the query is parsed: The query is parsed determinstically using string/regex parsing.** <!-- regex, string splitting, or asking the model — say which -->
 
-**What moves through the session:** <!-- which fields, in what order -->
+**What moves through the session:The parsed search values are stored in session["parsed"] and used to call search_listings. The search results are stored in session["search_listings"] and the highest ranked result as session["selected_item"]. That selected item is then read back from the session alongside session["wardrobe"]and passed to suggest_outfit, whose result is stored as session["outfit_suggestion"]. Then session["outfit_suggestion"] and session["selected_item"] are read from the session and passed to create_fit_card, and the resulting caption is stored as session["fit_card"]** <!-- which fields, in what order -->
 
 ---
 
