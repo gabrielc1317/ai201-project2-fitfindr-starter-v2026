@@ -23,7 +23,23 @@ the description has to say what is *in* the list.
 import config  # noqa: F401 — you'll use this in search_listings
 from generate import generate
 from utils.data_loader import load_listings
+import re
 
+
+# ── Helper Functions ──────────────────────────────────────────────────
+def _size_matches(requested: str, listing_size: str) -> bool:
+    """Match size tokens without accidental substring matches. eg: L -> XL"""
+    requested = requested.strip().casefold()
+    listing_size = listing_size.strip().casefold()
+
+    alpha_sizes = {"xxs", "xs", "s", "m", "l", "xl", "xxl", "xxxl"}
+
+    listing_tokens = re.findall(
+        r"\b(?:xxxl|xxl|xl|xxs|xs|s|m|l)\b|[a-z]+\d+\d+", listing_size,)
+
+    if requested in alpha_sizes:
+        return requested in listing_tokens
+    return requested in listing_tokens
 
 # ── Tool 1: search_listings ───────────────────────────────────────────────────
 
@@ -78,8 +94,43 @@ def search_listings(
     Test it from a terminal before you move on:
         python -c "from tools import search_listings; print(search_listings('graphic tee', max_price=30))"
     """
-    # TODO: replace this with your implementation
-    return []
+    # TODO: 
+    listings = load_listings()
+    query_tokens = set(re.findall(r"[a-z0-9]+", description.casefold()))
+    scored: list[tuple[int, dict]] =[]
+
+    for listing in listings:
+        if max_price is not None and listing["price"] > max_price:
+            continue
+
+        if size is not None and not _size_matches(size, listing["size"]):
+            continue
+        searchable_parts = [
+            listing["title"],
+            listing["description"],
+            listing["category"],
+            " ".join(listing["style_tags"]),
+            listing["size"],
+            " ".join(listing["colors"]),
+            listing["brand"] or "",
+            listing["platform"],
+        ]
+
+        searchable_text = " ".join(searchable_parts).casefold()
+        searchable_tokens = set(re.findall(r"[a-z0-9]+", searchable_text))
+
+        score = len(query_tokens & searchable_tokens)
+
+        if score > 0:
+            scored.append((score, listing))
+
+    scored.sort(key=lambda pair: pair[0], reverse=True)
+
+    return [
+        listing
+        for _, listing in scored[: config.SEARCH_RESULT_LIMIT]
+    ]
+
 
 
 # ── Tool 2: suggest_outfit ────────────────────────────────────────────────────
@@ -112,8 +163,52 @@ def suggest_outfit(new_item: dict, wardrobe: dict) -> str:
     Test it from a terminal before you move on:
         python -c "from tools import suggest_outfit; from utils.data_loader import get_example_wardrobe, load_listings; print(suggest_outfit(load_listings()[0], get_example_wardrobe()))"
     """
-    # TODO: replace this with your implementation
-    return ""
+    # TODO: 
+    items = wardrobe.get("items", [])
+
+    item_details = (
+        f"Item: {new_item['title']}\n"
+        f"Category: {new_item['category']}\n"
+        f"Colors: {', '.join(new_item['colors'])}\n"
+        f"Style tags: {', '.join(new_item['style_tags'])}\n"
+        f"Size: {new_item['size']}\n"
+    )
+    system = (
+        "You are a clothing styling assistant. "
+        "Give practical, specific outfit suggestions using the information provided. "
+        "Keep the response concise."
+    )
+    if not items:
+        prompt = ( 
+            f"{item_details}\n"
+            "The user has no items available.\n"
+            "Suggest one or two general ways to style this item. "
+            "Mention the types of clothing, shoes, or accessories that would pair well with it."
+        )
+        return generate(prompt, system=system)
+    
+    wardrobe_lines = []
+
+    for item in items:
+        wardrobe_lines.append(
+            f"- {item['name']} "
+            f"(category: {item['category']}); "
+            f"colors: {', '.join(item['colors'])}; "
+            f"style: {', '.join(item['style_tags'])}"
+        )
+    
+    wardrobe_text = "\n".join(wardrobe_lines)
+
+    prompt = (
+        f"{item_details}\n"
+        "The user already owns these wardrobe pieces:\n"
+        f"{wardrobe_text}\n\n"
+        "Suggest one or two outfits that combine the new item with existing pieces "
+        "from the user's wardrobe. Refer to the existing wardrobe pieces by name."
+    )
+
+    return generate(prompt, system=system)
+
 
 
 # ── Tool 3: create_fit_card ───────────────────────────────────────────────────
@@ -153,4 +248,22 @@ def create_fit_card(outfit: str, new_item: dict) -> str:
         python -c "from tools import create_fit_card; from utils.data_loader import load_listings; print(create_fit_card('jeans and white sneakers', load_listings()[0]))"
     """
     # TODO: replace this with your implementation
-    return ""
+    if not outfit or not outfit.strip():
+        return "A fit card cannot be created because no outfit suggestion was provided."
+
+    system = (
+        "You write short social-media-style fashion captions. "
+        "Keep the caption between two and four sentences long."
+        "Make it sound like a real post rather than a product description."
+    )
+    prompt = ( 
+        f"New item: {new_item['title']}\n"
+        f"Price: ${new_item['price']:.2f}\n"
+        f"Platform: {new_item['platform']}\n"
+        f"Style tags: {', '.join(new_item['style_tags'])}\n"
+        f"Outfit suggestion:\n{outfit}\n\n"
+        "Write a 2-to-4 sentence fit-card caption. "
+        "Mention the item, its price, and its platform exactly one each. "
+        "Describe the overall vibe of the outfit."
+    )
+    return generate(prompt, system=system)
