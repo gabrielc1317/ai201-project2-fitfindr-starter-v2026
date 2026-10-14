@@ -191,20 +191,23 @@ Nothing beats the effortless streetwear vibe of a truly broken-in pair of denim.
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for: How to avoid simple substring match, since a request for L should not automatically XL*
+- *What came back: AI suggested tokenizing the listing size with a regular expression so sizes such as L, XL, S/M, and numeric sizes could be compared as separate tokens instead of raw substrings.*
+- *What I changed: I added a _size_matches() helper that normalizes the requested size and listing size, extracts size tokens with regex, and checks membership against those tokens.*
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:Help debugging why suggest_outfit() was returning an empty string for both a normal wardrobe and an empty wardrobe.*
+- *What came back: AI first helped isolate the model adapter by testing generate() directly. After that worked, I inspected the actual suggest_outfit() function being executed and found that the file still contained the starter stub returning "".*
+- *What I changed:I saved the actual suggest_outfit() implementation into tools.py, then reran both the normal-wardrobe and empty-wardrobe tests and confirmed that both returned useful outfit suggestions.*
 
 <!-- ═══════════════════════ UNIT 4 — THE TEST ═══════════════════════
 
      Don't fill these in during unit 3.
      ═══════════════════════════════════════════════════════════════════ -->
+     Unit 4 Stretch Feature
+
+For the stretch feature, I am moving a second tool onto MCP. In addition to search_listings, I will expose suggest_outfit through the MCP server and have the agent call both tools through the MCP client. create_fit_card will remain a local tool.
 
 ---
 
