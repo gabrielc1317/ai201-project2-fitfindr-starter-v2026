@@ -205,7 +205,7 @@ Nothing beats the effortless streetwear vibe of a truly broken-in pair of denim.
 
      Don't fill these in during unit 3.
      ═══════════════════════════════════════════════════════════════════ -->
-     Unit 4 Stretch Feature
+Unit 4 Stretch Feature
 
 For the stretch feature, I am moving a second tool onto MCP. In addition to search_listings, I will expose suggest_outfit through the MCP server and have the agent call both tools through the MCP client. create_fit_card will remain a local tool.
 
@@ -284,22 +284,59 @@ that produced it:
      anyone will ever find that out. -->
 
 **Happy path**
-
+Calling function: 'app.py → agent.py::run_agent'
 ```
+$ python app.py ask 'vintage graphic tee under $30' --trace
+[1] search_listings (via MCP)
+      in:  dict with keys: description, size, max_price
+      out: 10 items: Y2K Baby Tee — Butterfly Print, Graphic Tee — 2003 Tour Bootleg Style, Vintage Band Tee — Faded Grey … +7 more
+[2] suggest_outfit (via MCP)
+      in:  dict with keys: new_item, wardrobe
+      out: Here are two outfit ideas using your new Y2K baby tee and items from your wardrobe:  **Outfit 1: Casual Street…
+[3] create_fit_card
+      in:  dict with keys: outfit, new_item
+      out: Channeling major early 2000s energy with this dreamy butterfly print Y2K baby tee. Grab it now on Depop for ju…
 
+  Found:    Y2K Baby Tee — Butterfly Print — $18.0 on depop
+
+  Outfit:   Here are two outfit ideas using your new Y2K baby tee and items from your wardrobe:
+
+**Outfit 1: Casual Streetwear Y2K**
+*   **Bottoms:** Baggy straight-leg jeans
+*   **Outerwear:** Black cropped zip hoodie
+*   **Shoes:** Chunky white sneakers
+*   **Accessories:** Black crossbody bag
+*   *Why it works:* The fitted silhouette of the baby tee balances the baggy jeans, and the cropped hoodie layered on top plays into classic Y2K proportions.
+
+**Outfit 2: Edge Meets Vintage**
+*   **Bottoms:** Wide-leg khaki trousers
+*   **Outerwear:** Vintage black denim jacket
+*   **Shoes:** Black combat boots
+*   *Why it works:* The tough black combat boots and denim jacket add an edgy contrast to the soft pink and purple butterfly print on the tee, while the khaki trousers keep the look grounded.
+
+  Fit card: Channeling major early 2000s energy with this dreamy butterfly print Y2K baby tee. Grab it now on Depop for just $18.00 to instantly upgrade your rotation. Pair it with baggy denim and chunky sneakers for the ultimate off-duty streetwear look, or toughen it up with combat boots for a sweet-meets-edgy vibe.
+
+0 model calls this session, 1 served from cache
 ```
 
 **Empty search**
-
+Calling function: 'app.py → agent.py::run_agent'
 ```
+$ python app.py ask 'diamond spacesuit size XXS under $1' --trace
+[1] search_listings (via MCP)
+      in:  dict with keys: description, size, max_price
+      out: [] (empty)
 
+  No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.
+
+0 model calls this session
 ```
 
 **On the MCP move:** <!-- what changed in your code, and whether anything
 behaved differently afterwards. If the rewire didn't work, say exactly where it
 broke — the error text and the last thing that worked. That earns the point in
 full. -->
-
+I moved search_listings and as a stretch feature suggest_outfit behind MCP. agent.py::run_agent now calls both through mcp_client.call_tool, while create_fit_card remains a local function call. Normal successful behavior stayed the same after the rewire. One architectural difference is that a model failure inside the MCP-hosted suggest_outfit reaches the parent agent through the MCP error boundary rather than directly as ModelUnavailable.
 
 
 ---
