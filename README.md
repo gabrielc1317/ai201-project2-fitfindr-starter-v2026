@@ -370,25 +370,26 @@ I moved search_listings and as a stretch feature suggest_outfit behind MCP. agen
      `python run_eval.py --label after` -->
 
 **What I changed:**
+I changed the scoring inside search_listings so words matching the listing title receive additional weight. Previously, every matching token contributed equally regardless of whether it appeared in the title or another searchable field. The new score keeps the general keyword-overlap score but adds extra weight for title matches.
 
 **Which failure it was meant to fix:**
+None of my five original acceptance criteria missed their targets, but the baseline exposed a search-quality problem that Criterion 1 did not measure well. For the query vintage graphic tee under $30, the baseline ranked Y2K Baby Tee — Butterfly Print above Graphic Tee — 2003 Tour Bootleg Style, even though the second listing's title directly matched both "graphic" and "tee." I changed only the ranking calculation to address that problem.
 
 ### Run Log — After
 
-| Criterion | Target | Try 1 | Try 2 | Try 3 | Try 4 | Try 5 | Verdict |
-|---|---|---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |  |  |
+| Criterion                                          | Target |Try 1|Try 2|Try 3|Try 4|try 5| Verdict |
+|---------------------------------------------------------|---|-----|-----|-----|-----|-----|---------|
+| 1. Matching query completes all three tools             |4/5|PASS |PASS |PASS |PASS |PASS |MET (5/5)|
+| 2. Impossible query stops before second tool            |5/5|PASS |PASS |PASS |PASS |PASS |MET (5/5)|
+| 3. Selected item is preserved through state             |5/5|PASS |PASS |PASS |PASS |PASS |MET (5/5)|
+| 4. Fit card includes price/platform and is 2–4 sentences|5/5|PASS |PASS |PASS |PASS |PASS |MET (5/5)|
+| 5. Search respects max_price                            |5/5|PASS |PASS |PASS |PASS |PASS |MET (5/5)|
 
 **Did it help, and how do I know:**
 
 <!-- If it made things worse, say that. Honestly reported, that earns full
      credit and is more interesting than one that worked. -->
-
-
+Yes. Before the change, Graphic Tee — 2003 Tour Bootleg Style ranked second and the agent selected lst_002, the Y2K Baby Tee. After the change, the Graphic Tee ranked first in all five runs and the agent selected lst_006 each time. The original acceptance-criteria pass counts remained the same, but the ranking behavior improved in the specific area identified by the baseline diagnosis. During Criterion 5 Try 3, create_fit_card temporarily could not reach the model. I still marked Criterion 5 as PASS because its criterion only measures whether every result returned by search_listings respects max_price. The search had already returned seven listings, all at or below the $20 maximum, before the unrelated downstream model failure occurred.
 
 ---
 
@@ -397,6 +398,9 @@ I moved search_listings and as a stretch feature suggest_outfit behind MCP. agen
 <!-- For each criterion still missed: what you'd do, and why you stopped where
      you did. "I ran out of time" is fine if it's true. Pretending nothing is
      left is not. -->
+Search relevance is better after weighting title matches, but search_listings is still based on token overlap rather than semantic meaning. A listing can therefore rank because it shares several words with a query without actually being the best interpretation of what the user wanted. Model-backed tools can also fail because of an external model or API problem. The agent now handles that failure without crashing and gives the user a useful message, but it cannot make the external model available again itself.
+
+
 
 
 

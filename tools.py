@@ -119,7 +119,14 @@ def search_listings(
         searchable_text = " ".join(searchable_parts).casefold()
         searchable_tokens = set(re.findall(r"[a-z0-9]+", searchable_text))
 
-        score = len(query_tokens & searchable_tokens)
+        title_tokens = set(
+            re.findall(r"[a-z0-9]+", listing["title"].casefold())
+        )
+
+        general_overlap = len(query_tokens & searchable_tokens)
+        title_overlap = len(query_tokens & title_tokens)
+
+        score = general_overlap + (2 * title_overlap)
 
         if score > 0:
             scored.append((score, listing))
