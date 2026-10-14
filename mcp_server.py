@@ -58,8 +58,10 @@ works with a direct call, and **a documented failure earns the point in full.**
 """
 
 from mcp.server.fastmcp import FastMCP
-
-from tools import search_listings as _search_listings_impl  # noqa: F401 — you'll use this below
+from tools import (
+    search_listings as _search_listings_impl,
+    suggest_outfit as _suggest_outfit_impl,
+) # noqa: F401 — you'll use this below
 
 # log_level="WARNING" keeps the server from printing an INFO line for every
 # request. Without it your terminal fills with "Processing request of type
@@ -69,20 +71,30 @@ mcp = FastMCP("fitfindr", log_level="WARNING")
 
 # ── TODO: uncomment and fill this in ──────────────────────────────────────────
 #
-# @mcp.tool()
-# def search_listings(
-#     description: str,
-#     size: str | None = None,
-#     max_price: float | None = None,
-# ) -> list[dict]:
-#     """
-#     <-- YOUR DESCRIPTION GOES HERE.
-#
-#         One or two sentences. What does this tool do, what does it need, and
-#         what does it give back when it finds nothing? Written for a reader
-#         who cannot see the code.
-#     """
-#     return _search_listings_impl(description, size, max_price)
+@mcp.tool()
+def search_listings(
+    description: str,
+    size: str | None = None,
+    max_price: float | None = None,
+) -> list[dict]:
+    """
+    <-- YOUR DESCRIPTION GOES HERE.
+        Search thrift listings using a decoration and optional size and maximum price in dollars. Returns matching
+        listing dictionaries ranked best first, or  an empty list when nothing matches.
+    """
+    return _search_listings_impl(description, size, max_price)
+
+@mcp.tool()
+def suggest_outfit(
+    new_item: dict,
+    wardrobe: dict,
+) -> str:
+    """
+    Suggest one or two outfits for a selected thrift listing using the user's wardrobe. Returns general styling
+    advice instead if the wardrobe is empty
+    """
+    return _suggest_outfit_impl(new_item, wardrobe)
+
 #
 # ──────────────────────────────────────────────────────────────────────────────
 #
