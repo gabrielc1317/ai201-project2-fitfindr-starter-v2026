@@ -47,6 +47,28 @@ SCENARIOS = [
     # For a fit-card criterion, you probably want the SAME query listed more
     # than once, or several different items, depending on what your criterion
     # actually says.
+    {
+    # Criterion 3 — selected item must be the item passed to suggest_outfit.
+    "name": "selected item preserved through state",
+    "query": "vintage polo shirt under $25",
+    "wardrobe": "example",
+    "criterion": 3,
+    },
+    {
+    # Criterion 4 — fit card should preserve price/platform and be 2–4 sentences.
+    "name": "fit card contains listing details",
+    "query": "denim jacket under $50",
+    "wardrobe": "example",
+    "criterion": 4,
+    },
+    {   
+    # Criterion 5 — every result must respect max_price.
+    "name": "search respects max price",
+    "query": "vintage under $20",
+    "wardrobe": "example",
+    "criterion": 5,
+    },
+
 ]
 
 WARDROBES = ("example", "empty")
