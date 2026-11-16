@@ -441,3 +441,16 @@ Search relevance is better after weighting title matches, but search_listings is
 ---
 
 📖 **How to run this project: [RUNNING.md](RUNNING.md)**
+
+## Capstone
+
+**What This Extends**
+
+This capstone extends FitFindr, the Python thrift-shopping assistant I built in AI201 Units 3 and 4. The existing command-line flow searches sample thrift listings through MCP, generates outfit suggestions, and writes a fit-card caption. My new user-facing capability is a browser page that submits searches to that same agent and displays the selected listing, suggested outfit, caption, and other matches. The CLI, original planning loop, and MCP tools remain in place.
+
+**The Shape**
+
+I chose Shape C - Extend one capability. The bounded feature is the browser-based search/results experience; hosting, documentation, logging, and cost measurements accompany it as Unit 9 requirements. I plan to deploy to Render and preserve a reproducible local run path in `RUNNING.md`. Out of scope: building a new recommendation model, replacing Gemini or the MCP protocol, implementing purchases or user accounts, or constructing a persistent wardrobe database. These would be separate capabilities, not part of this extension. I am declaring all three chosen stretch features before testing: 1: a second independently measured improvement with a separate after-run; 2: a measured breakdown of end-to-end latency across stages; and 3: a load observation comparing the normal request rate with ten times that arrival rate. For the load observation I will state the rate and sample size, record queue waits/errors and token usage, and avoid exceeding the available Gemini quota. No results or acceptance targets have been written in advance of measurement.
+
+
+
