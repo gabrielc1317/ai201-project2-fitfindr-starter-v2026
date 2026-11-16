@@ -41,13 +41,15 @@ import threading
 # and fixes the Windows console encoding for every module that imports it.
 import config  # noqa: F401
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 from agent import run_agent
 from utils.data_loader import get_example_wardrobe
 
 app = Flask(__name__)
-
+@app.get("/")
+def index():
+    return render_template("index.html")
 
 # ── one request at a time ─────────────────────────────────────────────────────
 # Here's why this exists.

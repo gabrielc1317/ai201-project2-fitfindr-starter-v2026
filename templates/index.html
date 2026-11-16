@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FitFindr: find a thrifted piece, style it using your wardrobe, and create a fit card.">
+  <title>FitFindr · Thrift smarter, style better</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='capstone.css') }}">
+  <script defer src="{{ url_for('static', filename='capstone.js') }}"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="nav" aria-label="Site header">
+      <a href="/" class="brand" aria-label="FitFindr home"><span class="brandmark">✳</span> FitFindr<span class="branddot">.</span></a>
+      <div class="nav-meta"><span class="status-dot" aria-hidden="true"></span> AI201 Capstone <span class="slash">/</span> Live demo</div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="intro-title">
+        <div class="eyebrow">YOUR PERSONAL THRIFT STYLIST <span class="star">✦</span> POWERED BY AI</div>
+        <h1 id="intro-title">Find your next <em>favorite fit.</em></h1>
+        <p class="intro-copy">Describe a thrift find. We'll search listings, suggest a look using your wardrobe, and write a ready-to-share fit card.</p>
+      </section>
+
+      <section class="search-card" aria-labelledby="search-heading">
+        <div class="section-top"><h2 id="search-heading">Start your search</h2><span class="step">01 / DISCOVER</span></div>
+        <form id="search-form" novalidate>
+          <label for="description">What are you looking for?</label>
+          <input id="description" name="description" maxlength="300" placeholder="e.g. vintage graphic tee" autocomplete="off" required>
+          <div class="field-grid">
+            <div>
+              <label for="size">Size <span class="optional">(optional)</span></label>
+              <input id="size" name="size" maxlength="15" placeholder="M">
+            </div>
+            <div>
+              <label for="budget">Max price in USD <span class="optional">(optional)</span></label>
+              <input id="budget" name="budget" type="number" min="1" max="100000" step="0.01" placeholder="30">
+            </div>
+          </div>
+          <label class="checkbox-line"><input type="checkbox" id="empty-wardrobe"> <span>I'm starting without a wardrobe</span></label>
+          <div class="form-bottom"><span class="helper">Search is based on a sample thrift-listings dataset.</span><button type="submit" id="submit">Find my fit <span aria-hidden="true">↗</span></button></div>
+        </form>
+      </section>
+
+      <div class="suggestions" aria-label="Sample searches"><span>TRY THESE:</span>
+        <button class="example" type="button" data-query="vintage graphic tee under $30">Graphic tee ↗</button>
+        <button class="example" type="button" data-query="90s track jacket size M">Track jacket ↗</button>
+        <button class="example" type="button" data-query="designer ballgown size XXS under $5">Empty results ↗</button>
+      </div>
+
+      <section id="result" class="results hidden" aria-live="polite" aria-atomic="false" aria-label="Search results">
+        <div id="feedback" class="feedback" role="status"></div>
+        <div id="success" class="hidden">
+          <div class="section-top"><h2>Your thrift match</h2><span class="step">02 / DISCOVERED</span></div>
+          <article class="selected" id="selected"></article>
+          <div class="section-top later"><h2>Style it your way</h2><span class="step">03 / STYLED</span></div>
+          <article class="detail" id="outfit"></article>
+          <div class="section-top later"><h2>Your fit card</h2><span class="step">04 / SHARE</span></div>
+          <article class="detail" id="fit-card"></article>
+          <div class="section-top later"><h2>Other matches</h2><span class="step">EXPLORE MORE</span></div>
+          <div class="more-list" id="other-matches"></div>
+        </div>
+      </section>
+    </main>
+    <footer><span>FITFINDR / AI201</span><span>Built to give secondhand style a first look.</span></footer>
+  </div>
+</body>
+</html>
