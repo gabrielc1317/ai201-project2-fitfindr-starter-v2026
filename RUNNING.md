@@ -253,7 +253,7 @@ units.
 - **Platform:** Render Web Service
 - **Runtime:** Python 3.12
 - **Build:** `pip install -r requirements.txt`
-- **Start:** `gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 serve:app`
+- **Start:** `gunicorn --bind 0.0.0.0:$PORT --workers 1 --worker-class gthread --threads 3 --timeout 120 serve:app`
 - **Health check:** `/health`
 - **Required secret:** `GEMINI_API_KEY`
 
