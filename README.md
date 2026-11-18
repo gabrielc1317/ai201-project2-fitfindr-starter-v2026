@@ -442,7 +442,7 @@ Search relevance is better after weighting title matches, but search_listings is
 
 📖 **How to run this project: [RUNNING.md](RUNNING.md)**
 
-## Capstone
+## Capstone Unit 9
 
 **What This Extends**
 
@@ -452,5 +452,98 @@ This capstone extends FitFindr, the Python thrift-shopping assistant I built in 
 
 I chose Shape C - Extend one capability. The bounded feature is the browser-based search/results experience; hosting, documentation, logging, and cost measurements accompany it as Unit 9 requirements. I plan to deploy to Render and preserve a reproducible local run path in `RUNNING.md`. Out of scope: building a new recommendation model, replacing Gemini or the MCP protocol, implementing purchases or user accounts, or constructing a persistent wardrobe database. These would be separate capabilities, not part of this extension. I am declaring all three chosen stretch features before testing: 1: a second independently measured improvement with a separate after-run; 2: a measured breakdown of end-to-end latency across stages; and 3: a load observation comparing the normal request rate with ten times that arrival rate. For the load observation I will state the rate and sample size, record queue waits/errors and token usage, and avoid exceeding the available Gemini quota. No results or acceptance targets have been written in advance of measurement.
 
+**Running It**
+- Hosted app: https://fit-findr.onrender.com/
+- Source: https://github.com/gabrielc1317/ai201-project2-fitfindr-starter-v2026
+- Prerequisites: Python 3.12, dependencies from requirements.txt, and a GEMINI_API_KEY environment variable (never commit the key).
+- Local: pip install -r requirements.txt followed by python serve.py; open http://localhost:5000/.
+- API: POST /ask with a JSON object such as {"query":"vintage graphic tee under $30"}; GET /health is the readiness check. Example:
+curl -sS -X POST https://fit-findr.onrender.com/ask \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"vintage graphic tee under $30"}'
+- Render start command: gunicorn --bind 0.0.0.0:$PORT --workers 1 --worker-class gthread --threads 3 --timeout 120 serve:app.
 
+The single worker keeps memory use lower, the threads allow lightweight health checks during longer requests, and an existing threading.Lock serializes agent execution. A free Render instance may experience cold starts. RUNNING.md contains the full setup and deployment procedure.
+
+
+**Instrumentation**
+
+I added observability.py hooks around /ask and per-stage timing in the agent. Each JSONL record includes a UTC timestamp, unique request ID, input summary, HTTP status, selected item ID, error/success fields, total server duration, time waiting on the in-process agent lock (queue_ms), and an applicable stages_ms breakdown (parse, mcp_search, mcp_outfit, fit_card). Records are written to logs/capstone_requests.jsonl on the instance and to Render stdout because the free-tier disk is not a durable logging store.
+
+Log audit: My after2 Render export contains 60/60 complete structured /ask records, with unique IDs: 30 successful complete workflows (four stages), 15 no-result responses (parse/search only), and 15 invalid requests (HTTP 400 and empty stage timings). Ten records, including failures/rejections, are pasted verbatim below and stored in [`results/capstone_log_samples.jsonl`](results/capstone_log_samples.jsonl); the full audit is in [`results/capstone_logging_audit.md`](results/capstone_logging_audit.md).
+
+```json
+{"timestamp": "2026-11-18T04:18:19.511418+00:00", "request_id": "05bf64fa12a24612b6d26d2bbf9d3bf1", "input": {"query": "", "wardrobe_provided": false}, "output": {"http_status": 400, "selected_item_id": null, "error": "Send JSON with a non-empty string 'query'.", "success": false}, "duration_ms": 0.4, "queue_ms": 0, "stages_ms": {}}
+{"timestamp": "2026-11-18T04:18:19.875137+00:00", "request_id": "c14c6889b49c463da065ad9d2fa4af17", "input": {"query": "   ", "wardrobe_provided": false}, "output": {"http_status": 400, "selected_item_id": null, "error": "Send JSON with a non-empty string 'query'.", "success": false}, "duration_ms": 0.2, "queue_ms": 0, "stages_ms": {}}
+{"timestamp": "2026-11-18T04:18:20.090749+00:00", "request_id": "2673172f6de24e34ba5968b8177ff9b0", "input": {"query": "", "wardrobe_provided": false}, "output": {"http_status": 400, "selected_item_id": null, "error": "Send JSON with a non-empty string 'query'.", "success": false}, "duration_ms": 0.22, "queue_ms": 0, "stages_ms": {}}
+{"timestamp": "2026-11-18T04:18:31.438903+00:00", "request_id": "0b478c184d6b4464b6d20fb98578a516", "input": {"query": "designer ballgown size XXS under $5", "wardrobe_provided": false}, "output": {"http_status": 200, "selected_item_id": null, "error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.", "success": false}, "duration_ms": 10028.24, "queue_ms": 0.0, "stages_ms": {"parse": 0.72, "mcp_search": 10026.79}}
+{"timestamp": "2026-11-18T04:19:02.039337+00:00", "request_id": "ee805f3d7da44715bc90fbb691ebc17a", "input": {"query": "antique kimono under $3", "wardrobe_provided": false}, "output": {"http_status": 200, "selected_item_id": null, "error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.", "success": false}, "duration_ms": 4082.55, "queue_ms": 0.0, "stages_ms": {"parse": 0.03, "mcp_search": 4081.88}}
+{"timestamp": "2026-11-18T04:19:33.038207+00:00", "request_id": "86083b18ec8d4bb6b2eb57e92ca04909", "input": {"query": "cashmere scarf under $1", "wardrobe_provided": false}, "output": {"http_status": 200, "selected_item_id": null, "error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.", "success": false}, "duration_ms": 4285.66, "queue_ms": 0.0, "stages_ms": {"parse": 0.03, "mcp_search": 4284.83}}
+{"timestamp": "2026-11-18T04:19:56.334023+00:00", "request_id": "c702b4690bec499dbe2c9e24129e6713", "input": {"query": "vintage graphic tee under $30", "wardrobe_provided": false}, "output": {"http_status": 200, "selected_item_id": "lst_006", "error": null, "success": true}, "duration_ms": 23154.1, "queue_ms": 0.0, "stages_ms": {"parse": 0.03, "mcp_search": 4053.07, "mcp_outfit": 13680.69, "fit_card": 5419.53}}
+{"timestamp": "2026-11-18T04:22:34.375924+00:00", "request_id": "1770edffc1f346dfb22312a41b724739", "input": {"query": "vintage band tee under $20", "wardrobe_provided": false}, "output": {"http_status": 200, "selected_item_id": "lst_033", "error": null, "success": true}, "duration_ms": 21751.21, "queue_ms": 0.0, "stages_ms": {"parse": 0.03, "mcp_search": 4108.1, "mcp_outfit": 16825.99, "fit_card": 816.35}}
+{"timestamp": "2026-11-18T04:23:34.435948+00:00", "request_id": "3adf98d9291e44f380dce04765673757", "input": {"query": "corduroy pants under $35", "wardrobe_provided": false}, "output": {"http_status": 200, "selected_item_id": "lst_005", "error": null, "success": true}, "duration_ms": 8426.85, "queue_ms": 0.0, "stages_ms": {"parse": 0.03, "mcp_search": 3929.44, "mcp_outfit": 4496.32, "fit_card": 0.3}}
+{"timestamp": "2026-11-18T04:25:26.143987+00:00", "request_id": "42c63870eec9420db9521e7ef75b7a02", "input": {"query": "vintage band tee under $20", "wardrobe_provided": false}, "output": {"http_status": 200, "selected_item_id": "lst_033", "error": null, "success": true}, "duration_ms": 8683.04, "queue_ms": 0.0, "stages_ms": {"parse": 0.03, "mcp_search": 4577.48, "mcp_outfit": 4104.49, "fit_card": 0.27}}
+```
+The stage durations measure elapsed time, not pure CPU use. In sequential tests queue_ms was near zero; it does not capture time spent at Render's proxy or waiting in a client queue. For malformed non-string queries, the current logger replaces input.query with an empty string, so the malformed type is not retained even though the HTTP rejection is correct.
+
+
+**What It Costs**
+
+I analyzed ten actual successful, complete requests from the first after2 matching trial, using the server logs rather than invented benchmark timings. The observed total server wall time was 179.889 seconds, or 17.989 seconds/request (median 16.829 seconds; range 16.055–23.154 seconds). Average per-stage durations were: mcp_search 4.195 s, mcp_outfit 12.204 s, and fit_card 1.590 s (parsing was negligible). The MCP outfit stage contributed roughly 68% of measured server time. The detailed ten run evidence is in [`results/capstone_cost_10run.md`] and [`results/capstone_cost_10run.csv`].
+
+Two model calls are expected for a successful uncached request: one in the MCP suggest_outfit subprocess and one in parent-process create_fit_card. The exported structured logs do not include complete Gemini usage metadata from both processes. Consequently actual input/output token totals and provider-billed charges for these ten runs are not measured, and 17.989 seconds must not be represented as CPU billing or model cost. Later trials were faster partly because application caching reused responses, so they are not independent uncached cost samples.
+
+For the configured gemini-3.5-flash-lite model, Google's Gemini Developer API Standard paid-tier published rates are $0.30/million input tokens and $2.50/million output tokens (including thinking tokens). See Google's official pricing. Free-tier usage may have no token charge within applicable quotas, but my account's actual billing was not verified.
+
+100-user/day planning scenario (not observed traffic): if each user runs one successful uncached search, that's 100 searches/day, approximately 200 Gemini model calls/day before retries, and 100 × 17.989 s = 1,798.9 seconds (~30 minutes) of cumulative serialized server wall time. Traffic bursts could create waits even if the daily average is low. If a future measurement captures both processes' average token use per search, the estimated paid-tier daily API expense is:
+
+100 × (avg_input_tokens × $0.30 + avg_output_tokens × $2.50) / 1,000,000.
+
+Illustrative sensitivity only (not measured usage): assuming 3,000 input tokens and 1,000 output tokens across both model calls combined per search would produce approximately $0.0034/search and $0.34 per 100 searches at those paid rates. This is not a claim about what FitFindr actually billed.
+
+
+**Run Log and Verdicts**
+
+I committed the five numerical Unit 9 acceptance criteria in criteria.md before formal baseline testing. The harness capstone_baseline.py ran three trials per group against the deployed /ask endpoint, preserving request-level JSONL and Markdown summaries in results/capstone_{before,after1,after2}_*.{jsonl,md}. Its C1/C3/C5 results are HTTP/client-timing proxies, not automated verification of the browser's rendered DOM.
+
+### Acceptance Criteria — Before and After Improvements
+
+| Criterion (Original Threshold) | Before (Trials 1/2/3) | After Improvement 1 | After Improvement 2 | Finding |
+|---|---|---|---|---|
+| **C1. Browser Completion (10/10)** | 2/10, 0/10, 0/10 | 10/10, 10/10, 10/10 | 10/10, 10/10, 10/10 | HTTP workflow proxy met after fixes; browser rendering requires separate verification. |
+| **C2. Input Validation (5/5)** | 3/5, 3/5, 3/5 | 3/5, 3/5, 3/5 | 5/5, 5/5, 5/5 | Invalid numeric and array queries now return HTTP 400 instead of HTTP 500. |
+| **C3. No-Result Handling (5/5)** | 5/5, 5/5, 5/5 | 5/5, 5/5, 5/5 | 5/5, 5/5, 5/5 | Correct broadening message; no invented listing or fit card. |
+| **C4. Observability (10/10 Logs)** | No complete independent audit | Not separately scored | 60/60 complete | All 60 audited after2 requests contained the required structured fields. |
+| **C5. Response Under 30s (9/10)** | 2/10, 0/10, 0/10 | 10/10, 10/10, 10/10 | 10/10, 10/10, 10/10 | Completed-and-timely HTTP proxy met; actual browser click-to-render timing was not automated. |
+
+
+
+**Diagnosis**: The initial matching baseline encountered a Render instance failure after two successful calls, causing one 502 during agent execution and 27 near-immediate gateway 502 responses. Render reported that its HTTP health check timed out at five seconds. A lone synchronous Gunicorn worker blocked on 15–30-second MCP/Gemini requests, preventing timely /health responses. Separately, malformed query values such as 123 or ["vintage tee"] caused AttributeError at serve.py's .strip() call, returning HTTP 500 instead of 400. These are observed failures—not deleted or relabeled successes. The initial 502 cascade is one infrastructure incident, not 28 independent agent defects.
+
+**The Improvement**
+
+**Improvement 1 — Hosting reliability:**. I changed the Render start command from a single synchronous Gunicorn worker to one gthread worker with three threads, keeping the existing agent lock. This lets /health respond while one thread handles a long agent request without running multiple Gemini agents in parallel. A concurrent probe produced 12/12 HTTP 200 health checks in 0.101–0.355 seconds, while a real 90s track jacket size M request completed its outfit and fit card. The formal after1 evaluation then completed 30/30 matching workflows with no 502s, versus 2/30 in the interrupted before run. This demonstrates a concrete improvement in availability during the test; it does not prove all future outages are eliminated.
+
+**Stretch Improvement 2 — Defensive query validation:** I updated serve.py to verify the incoming JSON body is an object and query is a nonempty string before stripping or invoking the agent. Invalid bodies now return a helpful HTTP 400 response. A local Flask test using a mocked run_agent produced 5/5 HTTP 400 results and zero agent calls. After deployment, the three-trial invalid-request score rose from 3/5 per trial to 5/5 per trial, while the other HTTP acceptance-test groups continued to pass. The structured rejected-request logs have empty stage lists, consistent with no agent work performed.
+
+**Stretch — Stage timing breakdown:** Timers isolate parsing, MCP search, MCP outfit generation, and fit-card generation. In the ten-run sample, the outfit stage averaged 12.204 s versus 4.195 s for search and 1.590 s for the fit card. These timings include process startup and waiting on external services; they are not isolated CPU utilization.
+
+**Stretch — 1× versus 10× offered arrival rate.** I performed two bounded experiments without deliberately creating dozens of Gemini generations:
+
+### 10× Load Observation — Results
+
+| Workload | Offered Rate (1× → 10×) | Completed | Mean Client Latency (1× → 10×) | Achieved 10× Dispatch Rate | Health Checks |
+|---|---|---:|---|---:|---:|
+| Invalid JSON (no agent) | 0.5 → 5.0 req/s (20 per phase) | 40/40 | 116.91 → 103.33 ms | 5.0 req/s | 39/39 |
+| Impossible search (MCP only) | 0.1 → 1.0 req/s (6 per phase) | 12/12 | 5.46 → 7.76 s | 0.287 req/s | 73/73 |
+
+
+The validation path sustained the full tenfold offered rate without failed requests. The MCP path completed all requests but exhibited approximately 42% higher mean latency and client-side backpressure: the maximum dispatch delay reached 12.39 s under the two-in-flight client cap. This is evidence of client/backpressure constraints with serialized MCP processing, not an independently measured maximum server throughput. The smaller MCP experiment has only six requests per phase; neither experiment measures full Gemini outfit-generation throughput. Raw reports are in [`results/capstone_load_invalid.md`]and [`results/capstone_load_zero.md`]
+
+**What's Still Broken**
+Search relevance still relies on deterministic token overlap; it can rank a shared-word listing above a semantically better match. The outfit text is inserted as plain text in the browser, so model-generated Markdown formatting such as **Top:** can appear literally. Gemini/API outages, rate limits, and Render cold starts remain external reliability risks. Agent requests remain serialized, creating throughput/backpressure limitations under bursts despite responsive health checks. Full provider usage from both parent and MCP subprocesses has not been included in request logs, limiting exact cost accounting. Finally, this run's automated scoring checks HTTP behavior, not visual DOM correctness; visual browser checks and peer feedback must be documented separately rather than claimed without evidence.
+
+**How I Used AI**
+
+I used ChatGPT as a programming and evaluation assistant, while making the final design choices and running and interpreting the tests myself. One concrete debugging moment was the Render failure: I supplied the 502 sequence, Gunicorn logs, and Render's five-second health-check timeout. AI suggested investigating a blocked synchronous worker; I changed the deployment to gthread while preserving serialization and verified it with concurrent health checks and three-trial reruns. A second moment was the invalid-request bug: after sharing the Python AttributeError for numeric and list queries, AI suggested explicit JSON and string-type validation; I applied the fix, ran a mocked local test, and reran the deployed acceptance suite. AI also helped structure test scripts, but I reviewed the generated analysis against real request logs instead of treating AI output as evidence on its own.
 
