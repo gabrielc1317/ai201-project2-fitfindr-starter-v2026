@@ -30,6 +30,7 @@ import asyncio
 import json
 import sys
 from pathlib import Path
+import os
 
 SERVER = Path(__file__).parent / "mcp_server.py"
 
@@ -72,9 +73,17 @@ async def _call(name: str, arguments: dict):
     from mcp import ClientSession, StdioServerParameters
     from mcp.client.stdio import stdio_client
 
+    # Forward only the settings required by the MCP subprocess.
+    forwarded_env = {
+        key: os.environ[key]
+        for key in ("GEMINI_API_KEY", "AI201_MODEL", "AI201_CACHE")
+        if key in os.environ
+    }
+
     params = StdioServerParameters(
         command=sys.executable,
         args=[str(SERVER)],
+        env=forwarded_env,
     )
 
     async with stdio_client(params) as (read, write):
