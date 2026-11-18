@@ -1,0 +1,786 @@
+{
+  "scenario": "invalid",
+  "date_utc": "2026-11-18T04:52:10.057816+00:00",
+  "phases": [
+    {
+      "phase": "1x",
+      "scenario": "invalid",
+      "intended_interval_s": 2.0,
+      "intended_rps": 0.5,
+      "count_requested": 20,
+      "count_sent": 20,
+      "peak_client_inflight": 1,
+      "rows": [
+        {
+          "http_status": 400,
+          "elapsed_ms": 168.98,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 1,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:28.230736+00:00",
+          "planned_offset_s": 0.0,
+          "actual_dispatch_offset_s": 0.001,
+          "client_dispatch_delay_ms": 0.54
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 111.17,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 2,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:30.172855+00:00",
+          "planned_offset_s": 2.0,
+          "actual_dispatch_offset_s": 2.0,
+          "client_dispatch_delay_ms": 0.45
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 152.86,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 3,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:32.214242+00:00",
+          "planned_offset_s": 4.0,
+          "actual_dispatch_offset_s": 4.0,
+          "client_dispatch_delay_ms": 0.15
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 95.31,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 4,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:34.156815+00:00",
+          "planned_offset_s": 6.0,
+          "actual_dispatch_offset_s": 6.0,
+          "client_dispatch_delay_ms": 0.28
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 150.47,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 5,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:36.212262+00:00",
+          "planned_offset_s": 8.0,
+          "actual_dispatch_offset_s": 8.001,
+          "client_dispatch_delay_ms": 0.56
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 111.57,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 6,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:38.173201+00:00",
+          "planned_offset_s": 10.0,
+          "actual_dispatch_offset_s": 10.0,
+          "client_dispatch_delay_ms": 0.4
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 96.69,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 7,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:40.158061+00:00",
+          "planned_offset_s": 12.0,
+          "actual_dispatch_offset_s": 12.0,
+          "client_dispatch_delay_ms": 0.14
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 98.07,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 8,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:42.159398+00:00",
+          "planned_offset_s": 14.0,
+          "actual_dispatch_offset_s": 14.0,
+          "client_dispatch_delay_ms": 0.11
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 104.22,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 9,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:44.165562+00:00",
+          "planned_offset_s": 16.0,
+          "actual_dispatch_offset_s": 16.0,
+          "client_dispatch_delay_ms": 0.12
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 117.02,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 10,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:46.178369+00:00",
+          "planned_offset_s": 18.0,
+          "actual_dispatch_offset_s": 18.0,
+          "client_dispatch_delay_ms": 0.12
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 107.83,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 11,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:48.169476+00:00",
+          "planned_offset_s": 20.0,
+          "actual_dispatch_offset_s": 20.0,
+          "client_dispatch_delay_ms": 0.42
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 107.64,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 12,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:50.168975+00:00",
+          "planned_offset_s": 22.0,
+          "actual_dispatch_offset_s": 22.0,
+          "client_dispatch_delay_ms": 0.12
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 105.71,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 13,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:52.167083+00:00",
+          "planned_offset_s": 24.0,
+          "actual_dispatch_offset_s": 24.0,
+          "client_dispatch_delay_ms": 0.15
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 109.09,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 14,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:54.170786+00:00",
+          "planned_offset_s": 26.0,
+          "actual_dispatch_offset_s": 26.0,
+          "client_dispatch_delay_ms": 0.46
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 111.18,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 15,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:56.172566+00:00",
+          "planned_offset_s": 28.0,
+          "actual_dispatch_offset_s": 28.0,
+          "client_dispatch_delay_ms": 0.16
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 158.67,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 16,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:51:58.220048+00:00",
+          "planned_offset_s": 30.0,
+          "actual_dispatch_offset_s": 30.0,
+          "client_dispatch_delay_ms": 0.14
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 115.52,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 17,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:52:00.176877+00:00",
+          "planned_offset_s": 32.0,
+          "actual_dispatch_offset_s": 32.0,
+          "client_dispatch_delay_ms": 0.12
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 108.63,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 18,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:52:02.170563+00:00",
+          "planned_offset_s": 34.0,
+          "actual_dispatch_offset_s": 34.001,
+          "client_dispatch_delay_ms": 0.71
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 108.2,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 19,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:52:04.169951+00:00",
+          "planned_offset_s": 36.0,
+          "actual_dispatch_offset_s": 36.001,
+          "client_dispatch_delay_ms": 0.52
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 99.27,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 20,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:52:06.160651+00:00",
+          "planned_offset_s": 38.0,
+          "actual_dispatch_offset_s": 38.0,
+          "client_dispatch_delay_ms": 0.16
+        }
+      ],
+      "health": [
+        {
+          "status": 200,
+          "elapsed_ms": 110.72,
+          "phase": "1x",
+          "t_since_start_s": 0.111
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 112.05,
+          "phase": "1x",
+          "t_since_start_s": 1.223
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 102.55,
+          "phase": "1x",
+          "t_since_start_s": 2.326
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 113.72,
+          "phase": "1x",
+          "t_since_start_s": 3.44
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 94.76,
+          "phase": "1x",
+          "t_since_start_s": 4.535
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 117.67,
+          "phase": "1x",
+          "t_since_start_s": 5.653
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 109.2,
+          "phase": "1x",
+          "t_since_start_s": 6.762
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 98.44,
+          "phase": "1x",
+          "t_since_start_s": 7.861
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 103.28,
+          "phase": "1x",
+          "t_since_start_s": 8.964
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 101.38,
+          "phase": "1x",
+          "t_since_start_s": 10.066
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 112.34,
+          "phase": "1x",
+          "t_since_start_s": 11.179
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 108.11,
+          "phase": "1x",
+          "t_since_start_s": 12.287
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 94.62,
+          "phase": "1x",
+          "t_since_start_s": 13.382
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 100.4,
+          "phase": "1x",
+          "t_since_start_s": 14.483
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 94.93,
+          "phase": "1x",
+          "t_since_start_s": 15.578
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 105.42,
+          "phase": "1x",
+          "t_since_start_s": 16.684
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 108.55,
+          "phase": "1x",
+          "t_since_start_s": 17.793
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 113.54,
+          "phase": "1x",
+          "t_since_start_s": 18.907
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 95.85,
+          "phase": "1x",
+          "t_since_start_s": 20.003
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 102.12,
+          "phase": "1x",
+          "t_since_start_s": 21.105
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 102.12,
+          "phase": "1x",
+          "t_since_start_s": 22.207
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 112.55,
+          "phase": "1x",
+          "t_since_start_s": 23.321
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 94.77,
+          "phase": "1x",
+          "t_since_start_s": 24.416
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 114.07,
+          "phase": "1x",
+          "t_since_start_s": 25.53
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 88.92,
+          "phase": "1x",
+          "t_since_start_s": 26.619
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 100.05,
+          "phase": "1x",
+          "t_since_start_s": 27.719
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 112.97,
+          "phase": "1x",
+          "t_since_start_s": 28.833
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 93.69,
+          "phase": "1x",
+          "t_since_start_s": 29.927
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 102.03,
+          "phase": "1x",
+          "t_since_start_s": 31.029
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 106.7,
+          "phase": "1x",
+          "t_since_start_s": 32.136
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 166.07,
+          "phase": "1x",
+          "t_since_start_s": 33.302
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 124.18,
+          "phase": "1x",
+          "t_since_start_s": 34.426
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 105.4,
+          "phase": "1x",
+          "t_since_start_s": 35.532
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 103.68,
+          "phase": "1x",
+          "t_since_start_s": 36.636
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 102.1,
+          "phase": "1x",
+          "t_since_start_s": 37.738
+        }
+      ]
+    },
+    {
+      "phase": "10x",
+      "scenario": "invalid",
+      "intended_interval_s": 0.2,
+      "intended_rps": 5.0,
+      "count_requested": 20,
+      "count_sent": 20,
+      "peak_client_inflight": 1,
+      "rows": [
+        {
+          "http_status": 400,
+          "elapsed_ms": 93.76,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 1,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:06.255084+00:00",
+          "planned_offset_s": 0.0,
+          "actual_dispatch_offset_s": 0.0,
+          "client_dispatch_delay_ms": 0.33
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 102.65,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 2,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:06.463767+00:00",
+          "planned_offset_s": 0.2,
+          "actual_dispatch_offset_s": 0.2,
+          "client_dispatch_delay_ms": 0.1
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 107.68,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 3,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:06.668799+00:00",
+          "planned_offset_s": 0.4,
+          "actual_dispatch_offset_s": 0.4,
+          "client_dispatch_delay_ms": 0.11
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 100.08,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 4,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:06.861471+00:00",
+          "planned_offset_s": 0.6,
+          "actual_dispatch_offset_s": 0.6,
+          "client_dispatch_delay_ms": 0.37
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 100.57,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 5,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:07.061740+00:00",
+          "planned_offset_s": 0.8,
+          "actual_dispatch_offset_s": 0.8,
+          "client_dispatch_delay_ms": 0.15
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 104.7,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 6,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:07.265822+00:00",
+          "planned_offset_s": 1.0,
+          "actual_dispatch_offset_s": 1.0,
+          "client_dispatch_delay_ms": 0.11
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 103.88,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 7,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:07.464976+00:00",
+          "planned_offset_s": 1.2,
+          "actual_dispatch_offset_s": 1.2,
+          "client_dispatch_delay_ms": 0.09
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 104.31,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 8,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:07.665448+00:00",
+          "planned_offset_s": 1.4,
+          "actual_dispatch_offset_s": 1.4,
+          "client_dispatch_delay_ms": 0.12
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 100.36,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 9,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:07.861512+00:00",
+          "planned_offset_s": 1.6,
+          "actual_dispatch_offset_s": 1.6,
+          "client_dispatch_delay_ms": 0.13
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 99.06,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 10,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:08.060176+00:00",
+          "planned_offset_s": 1.8,
+          "actual_dispatch_offset_s": 1.8,
+          "client_dispatch_delay_ms": 0.1
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 101.77,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 11,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:08.263262+00:00",
+          "planned_offset_s": 2.0,
+          "actual_dispatch_offset_s": 2.0,
+          "client_dispatch_delay_ms": 0.47
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 94.59,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 12,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:08.455785+00:00",
+          "planned_offset_s": 2.2,
+          "actual_dispatch_offset_s": 2.2,
+          "client_dispatch_delay_ms": 0.17
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 108.09,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 13,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:08.669276+00:00",
+          "planned_offset_s": 2.4,
+          "actual_dispatch_offset_s": 2.4,
+          "client_dispatch_delay_ms": 0.17
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 98.91,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 14,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:08.860051+00:00",
+          "planned_offset_s": 2.6,
+          "actual_dispatch_offset_s": 2.6,
+          "client_dispatch_delay_ms": 0.12
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 100.67,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 15,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:09.062021+00:00",
+          "planned_offset_s": 2.8,
+          "actual_dispatch_offset_s": 2.8,
+          "client_dispatch_delay_ms": 0.33
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 107.0,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 16,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:09.268456+00:00",
+          "planned_offset_s": 3.0,
+          "actual_dispatch_offset_s": 3.0,
+          "client_dispatch_delay_ms": 0.44
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 106.99,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 17,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:09.468443+00:00",
+          "planned_offset_s": 3.2,
+          "actual_dispatch_offset_s": 3.2,
+          "client_dispatch_delay_ms": 0.44
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 120.28,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 18,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:09.681353+00:00",
+          "planned_offset_s": 3.4,
+          "actual_dispatch_offset_s": 3.4,
+          "client_dispatch_delay_ms": 0.09
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 114.74,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 19,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:09.875801+00:00",
+          "planned_offset_s": 3.6,
+          "actual_dispatch_offset_s": 3.6,
+          "client_dispatch_delay_ms": 0.09
+        },
+        {
+          "http_status": 400,
+          "elapsed_ms": 96.5,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "Send JSON with a non-empty string 'query'.",
+          "index": 20,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:52:10.057527+00:00",
+          "planned_offset_s": 3.8,
+          "actual_dispatch_offset_s": 3.8,
+          "client_dispatch_delay_ms": 0.05
+        }
+      ],
+      "health": [
+        {
+          "status": 200,
+          "elapsed_ms": 98.3,
+          "phase": "10x",
+          "t_since_start_s": 0.098
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 106.25,
+          "phase": "10x",
+          "t_since_start_s": 1.205
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 110.83,
+          "phase": "10x",
+          "t_since_start_s": 2.316
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 105.38,
+          "phase": "10x",
+          "t_since_start_s": 3.422
+        }
+      ]
+    }
+  ]
+}

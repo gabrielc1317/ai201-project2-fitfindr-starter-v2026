@@ -1,0 +1,626 @@
+{
+  "scenario": "zero",
+  "date_utc": "2026-11-18T04:53:36.626845+00:00",
+  "phases": [
+    {
+      "phase": "1x",
+      "scenario": "zero",
+      "intended_interval_s": 10.0,
+      "intended_rps": 0.1,
+      "count_requested": 6,
+      "count_sent": 6,
+      "peak_client_inflight": 2,
+      "rows": [
+        {
+          "http_status": 200,
+          "elapsed_ms": 10465.85,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 1,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:52:26.736076+00:00",
+          "planned_offset_s": 0.0,
+          "actual_dispatch_offset_s": 0.001,
+          "client_dispatch_delay_ms": 0.51
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 5064.48,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 2,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:52:31.334522+00:00",
+          "planned_offset_s": 10.0,
+          "actual_dispatch_offset_s": 10.0,
+          "client_dispatch_delay_ms": 0.3
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 4259.59,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 3,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:52:40.529489+00:00",
+          "planned_offset_s": 20.0,
+          "actual_dispatch_offset_s": 20.0,
+          "client_dispatch_delay_ms": 0.16
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 4556.54,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 4,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:52:50.826453+00:00",
+          "planned_offset_s": 30.0,
+          "actual_dispatch_offset_s": 30.0,
+          "client_dispatch_delay_ms": 0.18
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 3965.35,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 5,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:53:00.235263+00:00",
+          "planned_offset_s": 40.0,
+          "actual_dispatch_offset_s": 40.0,
+          "client_dispatch_delay_ms": 0.18
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 4462.81,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 6,
+          "phase": "1x",
+          "timestamp_utc": "2026-11-18T04:53:10.732709+00:00",
+          "planned_offset_s": 50.0,
+          "actual_dispatch_offset_s": 50.0,
+          "client_dispatch_delay_ms": 0.17
+        }
+      ],
+      "health": [
+        {
+          "status": 200,
+          "elapsed_ms": 105.3,
+          "phase": "1x",
+          "t_since_start_s": 0.106
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 146.93,
+          "phase": "1x",
+          "t_since_start_s": 1.253
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 204.88,
+          "phase": "1x",
+          "t_since_start_s": 2.458
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 198.47,
+          "phase": "1x",
+          "t_since_start_s": 3.656
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 96.73,
+          "phase": "1x",
+          "t_since_start_s": 4.753
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 107.13,
+          "phase": "1x",
+          "t_since_start_s": 5.861
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 92.29,
+          "phase": "1x",
+          "t_since_start_s": 6.953
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 108.04,
+          "phase": "1x",
+          "t_since_start_s": 8.061
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 122.17,
+          "phase": "1x",
+          "t_since_start_s": 9.184
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 167.76,
+          "phase": "1x",
+          "t_since_start_s": 10.352
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 95.76,
+          "phase": "1x",
+          "t_since_start_s": 11.448
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 109.33,
+          "phase": "1x",
+          "t_since_start_s": 12.558
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 104.33,
+          "phase": "1x",
+          "t_since_start_s": 13.662
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 102.82,
+          "phase": "1x",
+          "t_since_start_s": 14.765
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 115.64,
+          "phase": "1x",
+          "t_since_start_s": 15.881
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 87.11,
+          "phase": "1x",
+          "t_since_start_s": 16.969
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 99.24,
+          "phase": "1x",
+          "t_since_start_s": 18.068
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 101.18,
+          "phase": "1x",
+          "t_since_start_s": 19.169
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 85.1,
+          "phase": "1x",
+          "t_since_start_s": 20.255
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 96.58,
+          "phase": "1x",
+          "t_since_start_s": 21.351
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 99.99,
+          "phase": "1x",
+          "t_since_start_s": 22.451
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 101.68,
+          "phase": "1x",
+          "t_since_start_s": 23.553
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 97.35,
+          "phase": "1x",
+          "t_since_start_s": 24.651
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 110.0,
+          "phase": "1x",
+          "t_since_start_s": 25.761
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 101.84,
+          "phase": "1x",
+          "t_since_start_s": 26.864
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 100.12,
+          "phase": "1x",
+          "t_since_start_s": 27.964
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 110.73,
+          "phase": "1x",
+          "t_since_start_s": 29.075
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 177.12,
+          "phase": "1x",
+          "t_since_start_s": 30.252
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 103.46,
+          "phase": "1x",
+          "t_since_start_s": 31.356
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 104.32,
+          "phase": "1x",
+          "t_since_start_s": 32.461
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 193.25,
+          "phase": "1x",
+          "t_since_start_s": 33.654
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 100.31,
+          "phase": "1x",
+          "t_since_start_s": 34.755
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 99.71,
+          "phase": "1x",
+          "t_since_start_s": 35.855
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 105.83,
+          "phase": "1x",
+          "t_since_start_s": 36.961
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 95.92,
+          "phase": "1x",
+          "t_since_start_s": 38.057
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 105.29,
+          "phase": "1x",
+          "t_since_start_s": 39.162
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 104.38,
+          "phase": "1x",
+          "t_since_start_s": 40.267
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 102.01,
+          "phase": "1x",
+          "t_since_start_s": 41.369
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 180.66,
+          "phase": "1x",
+          "t_since_start_s": 42.55
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 99.5,
+          "phase": "1x",
+          "t_since_start_s": 43.65
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 103.74,
+          "phase": "1x",
+          "t_since_start_s": 44.754
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 90.68,
+          "phase": "1x",
+          "t_since_start_s": 45.845
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 96.13,
+          "phase": "1x",
+          "t_since_start_s": 46.942
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 107.8,
+          "phase": "1x",
+          "t_since_start_s": 48.05
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 109.22,
+          "phase": "1x",
+          "t_since_start_s": 49.159
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 192.4,
+          "phase": "1x",
+          "t_since_start_s": 50.352
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 178.81,
+          "phase": "1x",
+          "t_since_start_s": 51.531
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 154.76,
+          "phase": "1x",
+          "t_since_start_s": 52.687
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 168.2,
+          "phase": "1x",
+          "t_since_start_s": 53.855
+        }
+      ]
+    },
+    {
+      "phase": "10x",
+      "scenario": "zero",
+      "intended_interval_s": 1.0,
+      "intended_rps": 1.0,
+      "count_requested": 6,
+      "count_sent": 6,
+      "peak_client_inflight": 2,
+      "rows": [
+        {
+          "http_status": 200,
+          "elapsed_ms": 4295.51,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 1,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:53:15.028946+00:00",
+          "planned_offset_s": 0.0,
+          "actual_dispatch_offset_s": 0.0,
+          "client_dispatch_delay_ms": 0.23
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 7488.74,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 2,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:53:19.222582+00:00",
+          "planned_offset_s": 1.0,
+          "actual_dispatch_offset_s": 1.001,
+          "client_dispatch_delay_ms": 0.61
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 8495.87,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 3,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:53:23.524939+00:00",
+          "planned_offset_s": 2.0,
+          "actual_dispatch_offset_s": 4.296,
+          "client_dispatch_delay_ms": 2295.82
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 8904.76,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 4,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:53:28.127428+00:00",
+          "planned_offset_s": 3.0,
+          "actual_dispatch_offset_s": 8.489,
+          "client_dispatch_delay_ms": 5489.45
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 8902.11,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 5,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:53:32.427187+00:00",
+          "planned_offset_s": 4.0,
+          "actual_dispatch_offset_s": 12.792,
+          "client_dispatch_delay_ms": 8791.82
+        },
+        {
+          "http_status": 200,
+          "elapsed_ms": 8498.87,
+          "transport_error": null,
+          "passed": true,
+          "agent_error": "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price.",
+          "index": 6,
+          "phase": "10x",
+          "timestamp_utc": "2026-11-18T04:53:36.626376+00:00",
+          "planned_offset_s": 5.0,
+          "actual_dispatch_offset_s": 17.394,
+          "client_dispatch_delay_ms": 12394.29
+        }
+      ],
+      "health": [
+        {
+          "status": 200,
+          "elapsed_ms": 105.45,
+          "phase": "10x",
+          "t_since_start_s": 0.106
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 185.35,
+          "phase": "10x",
+          "t_since_start_s": 1.291
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 89.55,
+          "phase": "10x",
+          "t_since_start_s": 2.381
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 108.83,
+          "phase": "10x",
+          "t_since_start_s": 3.49
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 112.51,
+          "phase": "10x",
+          "t_since_start_s": 4.602
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 187.07,
+          "phase": "10x",
+          "t_since_start_s": 5.79
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 96.78,
+          "phase": "10x",
+          "t_since_start_s": 6.887
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 101.23,
+          "phase": "10x",
+          "t_since_start_s": 7.989
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 156.71,
+          "phase": "10x",
+          "t_since_start_s": 9.146
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 143.72,
+          "phase": "10x",
+          "t_since_start_s": 10.29
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 100.11,
+          "phase": "10x",
+          "t_since_start_s": 11.39
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 99.15,
+          "phase": "10x",
+          "t_since_start_s": 12.489
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 101.0,
+          "phase": "10x",
+          "t_since_start_s": 13.591
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 107.1,
+          "phase": "10x",
+          "t_since_start_s": 14.698
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 102.18,
+          "phase": "10x",
+          "t_since_start_s": 15.801
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 105.34,
+          "phase": "10x",
+          "t_since_start_s": 16.906
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 123.22,
+          "phase": "10x",
+          "t_since_start_s": 18.029
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 115.22,
+          "phase": "10x",
+          "t_since_start_s": 19.145
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 141.92,
+          "phase": "10x",
+          "t_since_start_s": 20.287
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 103.18,
+          "phase": "10x",
+          "t_since_start_s": 21.391
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 91.27,
+          "phase": "10x",
+          "t_since_start_s": 22.482
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 105.8,
+          "phase": "10x",
+          "t_since_start_s": 23.588
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 111.99,
+          "phase": "10x",
+          "t_since_start_s": 24.7
+        },
+        {
+          "status": 200,
+          "elapsed_ms": 192.32,
+          "phase": "10x",
+          "t_since_start_s": 25.893
+        }
+      ]
+    }
+  ]
+}
