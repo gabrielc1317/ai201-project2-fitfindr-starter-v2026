@@ -41,12 +41,15 @@ import threading
 # and fixes the Windows console encoding for every module that imports it.
 import config  # noqa: F401
 
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, g 
 
 from agent import run_agent
 from utils.data_loader import get_example_wardrobe
+from time import perf_counter
+from observability import setup_observability
 
 app = Flask(__name__)
+setup_observability(app)
 @app.get("/")
 def index():
     return render_template("index.html")
@@ -140,11 +143,21 @@ def ask():
 
     failure = None
     session = None
+    queue_started = perf_counter()
+
     with _one_at_a_time:
+        g.queue_ms = round(
+            (perf_counter() - queue_started) * 1000, 2
+        )
+
         try:
             session = run_agent(query, wardrobe)
-        except Exception as exc:  # noqa: BLE001 — a 500 with a sentence beats a hang
+        except Exception as exc:
             failure = f"{type(exc).__name__}: {exc}"
+
+    # Make the results available to the logging hook.
+    g.fitfindr_session = session
+    g.fitfindr_exception = failure
 
     # Outside the lock: building a response is not work the next caller should
     # be waiting on.

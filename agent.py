@@ -18,7 +18,18 @@ import trace
 from tools import create_fit_card
 from mcp_client import call_tool, MCPError
 from generate import ModelUnavailable
+from contextlib import contextmanager
+from time import perf_counter
 
+@contextmanager
+def measure_stage(session, name):
+    started = perf_counter()
+    try:
+        yield
+    finally:
+        session["stage_timings_ms"][name] = round(
+            (perf_counter() - started) * 1000, 2
+        )
 
 # ── session state ─────────────────────────────────────────────────────────────
 
@@ -44,7 +55,8 @@ def new_session(query: str, wardrobe: dict) -> dict:
         "wardrobe": wardrobe,        # the user's wardrobe
         "outfit_suggestion": None,   # what suggest_outfit returned
         "fit_card": None,            # what create_fit_card returned
-        "error": None,               # set when the run ended early
+        "error": None,
+        "stage_timings_ms": {},                              # set when the run ended early
     }
 # ── helper functions ─────────────────────────────────────────────────────────────
 def _parse_query(query: str) -> dict:
@@ -151,7 +163,8 @@ def run_agent(query: str, wardrobe: dict) -> dict:
     session = new_session(query, wardrobe)
     trace.start_trace()
 
-    session["parsed"] = _parse_query(session["query"])
+    with measure_stage(session, "parse"):
+        session["parsed"] = _parse_query(session["query"])
 
     step = "search"
     iteration = 0
@@ -171,10 +184,11 @@ def run_agent(query: str, wardrobe: dict) -> dict:
             }
 
             try:
-                session["search_results"] = call_tool(
-                    "search_listings",
-                    search_inputs,
-                )
+                with measure_stage(session, "mcp_search"):
+                    session["search_results"] = call_tool(
+                        "search_listings",
+                        search_inputs,
+                    )
             except MCPError as exc:
                 trace.step(
                     "search_listings (via MCP)",
@@ -217,10 +231,11 @@ def run_agent(query: str, wardrobe: dict) -> dict:
             }
 
             try:
-                session["outfit_suggestion"] = call_tool(
-                    "suggest_outfit",
-                    outfit_inputs,
-                )
+                with measure_stage(session, "mcp_outfit"):
+                    session["outfit_suggestion"] = call_tool(
+                        "suggest_outfit",
+                        outfit_inputs,
+                    )
             except MCPError as exc:
                 trace.step(
                     "suggest_outfit (via MCP)",
@@ -255,10 +270,11 @@ def run_agent(query: str, wardrobe: dict) -> dict:
             }
 
             try:
-                session["fit_card"] = create_fit_card(
-                    session["outfit_suggestion"],
-                    session["selected_item"],
-                )
+                with measure_stage(session, "fit_card"):
+                    session["fit_card"] = create_fit_card(
+                        session["outfit_suggestion"],
+                        session["selected_item"],
+                    )
             except ModelUnavailable:
                 trace.step(
                     "create_fit_card",
