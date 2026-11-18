@@ -4,9 +4,10 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from time import perf_counter
+from urllib import response
 from uuid import uuid4
 
-from flask import g, request
+from flask import g, request, session
 
 LOG_FILE = Path(__file__).parent / "logs" / "capstone_requests.jsonl"
 
@@ -37,8 +38,17 @@ def setup_observability(app):
             session = {}
 
         selected = session.get("selected_item") or {}
-        error = session.get("error") or getattr(
-            g, "fitfindr_exception", None
+        response_data = response.get_json(silent=True)
+        response_error = (
+            response_data.get("error")
+            if isinstance(response_data, dict)
+            else None
+        )
+
+        error = (
+            session.get("error")
+            or getattr(g, "fitfindr_exception", None)
+            or response_error
         )
 
         record = {
