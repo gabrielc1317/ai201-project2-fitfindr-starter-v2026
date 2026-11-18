@@ -13,6 +13,7 @@ Build and test your three tools in `tools.py` first. Then come here.
     python agent.py          runs both example paths below
 """
 import re
+import sys
 import config
 import trace
 from tools import create_fit_card
@@ -237,6 +238,11 @@ def run_agent(query: str, wardrobe: dict) -> dict:
                         outfit_inputs,
                     )
             except MCPError as exc:
+                print(
+                    f"[FitFindr] suggest_outfit MCP failure: {type(exc).__name__}: {exc}",
+                    file=sys.stderr,
+                    flush=True,
+                )
                 trace.step(
                     "suggest_outfit (via MCP)",
                     inputs=outfit_inputs,

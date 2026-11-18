@@ -246,3 +246,20 @@ history is what shows your criteria existed before your results did.
 units.
 
 `results/` is deliberately **not** in `.gitignore`.
+
+### Capstone Deployment — Render
+
+- **Hosted URL:** https://fit-findr.onrender.com/
+- **Platform:** Render Web Service
+- **Runtime:** Python 3.12
+- **Build:** `pip install -r requirements.txt`
+- **Start:** `gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 serve:app`
+- **Health check:** `/health`
+- **Required secret:** `GEMINI_API_KEY`
+
+The system uses the existing MCP tools and Gemini API.
+The browser interface sends requests to POST `/ask`.
+
+The free hosting tier may introduce cold-start delays.
+Request logs are also printed to the service console because
+the container filesystem is not persistent.
