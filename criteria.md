@@ -135,3 +135,73 @@ Since this is deterministic and the idea behind thrifting is to get clothes for 
      A number you missed stays where it is, gets diagnosed, and gets a fix
      attempted. That's where the points are.
      ───────────────────────────────────────────────────────────────────────── -->
+
+
+## 1. Browser Search-to-Fit-Card Completion
+
+**Description:Each query should result in a listing search and a outfit suggestion alongside a fit card if search successfully identifies a compatible listing.**
+
+**Test Condition:User inputs atleast a description of a thrift find and selects find my fit.**
+
+**Expected Result:If compatible listing is found a visual fitcard and outfit suggestion should be displayed alongside the identified listing.**
+
+**Passing Threshold:10 out of 10 queries should return the expected result.**
+
+**Why This Target:The point of fitfindr is to allow its users a easy way to get stylish outfits for cheap (thrifting), when someone searches for something it should result in 1 of 2 things, either no listing found or the listing accompanied with styling advice (outfit suggestion) and a fit card.**
+
+
+## 2. Browser Input Validation
+
+**Description:When a malformed or empty query is sent, no tokens should be spent on the model, and should be handled before reaching the model.**
+
+**Test Condition:When inputting a empty query or a malformed one, for example: a whitespace-only browser search field, API request missing the query field, API request where query is a number or an array rather than a string. Then sending it by selecting find my fit.**
+
+**Expected Result:Query should not reach model (no Gemini calls), and a message displaying to fix the query is displayed/HTTP 400.**
+
+**Passing Threshold:5 out of 5 empty/malformed queries/requests should not reach the model and should display a message to fix query.**
+
+**Why This Target:If someone is sending malformed requests or using empty queries, there is no fit finding to be done. To save resources and time of the user, it is optimal for all requests being clearly malformed or empty should be handled before reaching the model.**
+
+
+
+
+## 3. Zero-Result Search Handling
+
+
+**Description:If a user inputs a request/query that doesnt match any listings, a message should display that none could be found instead of inventing a fit or displaying a non-matching listing against what the user requested.**
+
+**Test Condition:User inputs a request that doesn't match any available listings.**
+
+**Expected Result:The site should display a message stating, "No listings matched your search. Try broadening the description, changing the size, or raising the maximum price." to guide the user to update their search request.**
+
+**Passing Threshold:5 out of 5 non-compatible requests should return the broadening message, 0 out of 5 non-compatible requests should output a non-compatible listing in regards to the user's request.**
+
+**Why This Target:If there is no listing found that matches the user's description, it isn't very helpful to wait and recieve a whole fit card, outfit suggestion, for an item that you weren't looking for in the first place.**
+
+
+
+## 4. Request Logging and Observability
+
+**Description:All requests: successful and unsuccessful, should produce the defined structured log fields and stage timings.**
+
+**Test Condition:User sends a request/query.**
+
+**Expected Result:The log fields and applicable stage timings should be produced regardless of the success of each request in the defined structure.**
+
+**Passing Threshold:For 10 out of 10 requests, each should produce the required log fields and stage timings.**
+
+**Why This Target:To ensure upkeep and observability of FitFindr, all requests should produce the proper instrumentation for development and logging purposes.**
+
+
+## 5. Response Reliability
+
+**Description:Once the user clicks the "Find my fit" button (equivalent to submitting a /ask query), they should recieve a response within 30 seconds of submitting regardless of success.**
+
+**Test Condition:User puts inputs atleast a description and clicks "Find my fit".**
+
+**Expected Result:A fit card and outfit suggestion should be displayed, a message to broaden the search, or a message to fix the request due to invalid input should be displayed within 30 seconds of the user submitting the query.**
+
+**Passing Threshold:9 out of 10 queries should return a visible response on the site within 30 seconds of query submission.**
+
+**Why This Target:When someones looking for thrifted outfits, they usually wanna go through multiple listings and see what works best, it is inconvient to wait minutes for finding a listing and creating an outfit. By keeping it to 30 seconds maximum for response time it ensures a timely result in atleast 90% of searches, since ai models can be unpredictable in timing at certain times, there is a 10% margin of error for queries that might take slightly longer.**
+
